@@ -509,20 +509,19 @@ app.controller("MapController", function($scope, $http, $sce, $location){
 
 	$scope.map.initBasemaps = function(){
 		// this route does not exist yet in the backend..
-
 		/*$http.get($scope.dbServerAddress + 'basemaps')
 			.success(function(response){
-				for (var i = response.length - 1; i >= 0; i--) {
-					$scope.map.basemaps.push(response[i]);
-				};
-			}).error(function(response){});
+                $scope.map.basemaps = response.data;
+			});*/
+
+		// DEBUG
+        $scope.map.basemaps = [
+            { wms: 'http://www.wms.nrw.de/geobasis/wms_nw_dtk', layer: 'nw_dtk_pan', name: 'NRW DTK' },
+            { wms: 'http://localhost:9000/geoserver/feuerGIS/wms', layer: 'feuerGIS:basemap', name: 'NRW OSM' },
+        ];
 
 		// show default basemap
-		$scope.map.showBasemap($scope.wmsServerAddress, $scope.map.basemaps[0].name);*/
-		
-		// DEBUG
-		//$scope.map.showBasemap($scope.wmsServerAddress, 'feuerGIS:basemap');
-		$scope.map.showBasemap('http://www.wms.nrw.de/geobasis/wms_nw_dtk', 'nw_dtk_pan');
+		$scope.map.showBasemap($scope.map.basemaps[0].wms, $scope.map.basemaps[0].layer);
 	};
 
 	$scope.map.showBasemap = function(wms, layer){
